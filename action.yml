@@ -1,0 +1,23 @@
+name: NanoFlow
+description: This is a GitHub Action for managing and executing parallel tasks.
+branding:
+  color: blue
+  icon: arrow-right-circle
+inputs:
+  path:
+    description: >
+      The path to the extension. This should be the path to the folder satisifying the specification of raycast extension.
+    default: ./mflow.toml
+runs:
+  using: composite
+  steps:
+    - name: Check out the current repo
+      uses: actions/checkout@v4
+      with:
+        path: ${{ inputs.extension-name }}
+    - name: Install nanoflow
+      shell: bash
+      run: python -m pip install nanoflow
+    - name: run nanoflow
+      shell: bash
+      run: python -m nanoflow ${{ inputs.path }}

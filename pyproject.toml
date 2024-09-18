@@ -1,0 +1,80 @@
+[project]
+name = "nanoflow"
+dynamic = ["version"]
+description = "A simple and efficient workflow framework for Python"
+authors = [{ name = "Zhan Rongrui", email = "2742392377@qq.com" }]
+dependencies = [
+    "loguru>=0.7.2",
+    "matplotlib>=3.9.2",
+    "networkx>=3.3",
+    "pydantic>=2.9.1",
+    "rich>=13.8.1",
+    "toml>=0.10.2",
+    "typer>=0.12.5",
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = { text = "MIT" }
+
+[project.urls]
+Homepage = "https://github.com/zrr1999/nanoflow.git"
+Repository = "https://github.com/zrr1999/nanoflow.git"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    # Pyflakes
+    "F",
+    # Pycodestyle
+    "E",
+    "W",
+    # Isort
+    "I",
+    # Pyupgrade
+    "UP",
+    # Flake8
+    "B",
+    "C4",
+    "YTT",
+    "TID",
+    "PTH",
+    # Pygrep-hooks
+    "PGH",
+    # Ruff-specific rules
+    "RUF",
+]
+ignore = ["F841", "PGH003", "UP038", "B008", "RUF001", "RUF003"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "I002"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["recognize"]
+required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.pyright]
+includes = ["nanoflow"]
+typeCheckingMode = "standard"
+reportPrivateImportUsage = false
+
+[tool.pdm.version]
+source = "scm"
+write_to = "nanoflow/__version__.py"
+write_template = "__version__ = '{}'"
+
+[tool.pdm.build]
+includes = ["nanoflow"]
+source-includes = ["README.md"]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"

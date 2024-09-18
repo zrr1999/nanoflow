@@ -1,0 +1,8 @@
+__pycache__/
+dist/
+.pdm-build/
+
+.python-version
+.cursorrules
+
+__version__.py
