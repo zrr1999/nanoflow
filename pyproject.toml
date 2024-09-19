@@ -4,12 +4,12 @@ dynamic = ["version"]
 description = "A simple and efficient workflow framework for Python"
 authors = [{ name = "Zhan Rongrui", email = "2742392377@qq.com" }]
 dependencies = [
-    "loguru>=0.7.2",
-    "matplotlib>=3.9.2",
-    "networkx>=3.3",
-    "pydantic>=2.9.1",
-    "rich>=13.8.1",
-    "toml>=0.10.2",
+    "loguru>=0.7.0",
+    "matplotlib>=3.9.0",
+    "networkx>=3.0",
+    "pydantic>=2.0.0",
+    "rich>=13.8.0",
+    "toml>=0.10.0",
     "typer>=0.12.5",
 ]
 requires-python = ">=3.11"

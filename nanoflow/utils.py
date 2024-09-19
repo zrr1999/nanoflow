@@ -19,6 +19,7 @@ def group_parallel_nodes(nodes: dict[str, list[str]]) -> list[list[str]]:
     graph = nx.DiGraph()
 
     for node, dependencies in nodes.items():
+        graph.add_node(node)
         for dependency in dependencies:
             graph.add_edge(dependency, node)
 
