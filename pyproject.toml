@@ -20,6 +20,9 @@ license = { text = "MIT" }
 Homepage = "https://github.com/zrr1999/nanoflow.git"
 Repository = "https://github.com/zrr1999/nanoflow.git"
 
+[project.scripts]
+nanoflow = "nanoflow.__main__:app"
+
 [tool.ruff]
 line-length = 120
 target-version = "py311"
