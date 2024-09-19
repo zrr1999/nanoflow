@@ -21,7 +21,7 @@ jobs:
         PDM_IGNORE_SCM_VERSION: ${{ github.ref_name }}
       run: |
         pdm install
-        pdm build --no-isolation --no-sdist
+        pdm build --no-sdist
     - name: Upload wheels 👷‍♂️
       uses: actions/upload-artifact@v4
       with:
