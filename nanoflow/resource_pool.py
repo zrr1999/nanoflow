@@ -5,6 +5,7 @@ from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
+
 class ResourcePool(Generic[T]):
     def __init__(self, resources: list[T]):
         self.resources = {res: asyncio.Semaphore(1) for res in resources}

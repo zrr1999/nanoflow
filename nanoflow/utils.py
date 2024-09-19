@@ -59,9 +59,7 @@ async def execute_parallel_tasks(config: WorkflowConfig):
 
     logger.info("Creating GPU resource pool and parallel tasks")
     gpu_pool = ResourcePool(await available_gpus)
-    parallel_tasks = [
-        [create_gpu_task(config.tasks[node].command) for node in nodes] for nodes in await parallel_nodes
-    ]
+    parallel_tasks = [[create_gpu_task(config.tasks[node].command) for node in nodes] for nodes in await parallel_nodes]
 
     for tasks in parallel_tasks:
         start_time = asyncio.get_event_loop().time()
