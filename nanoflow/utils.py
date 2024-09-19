@@ -1,15 +1,17 @@
 from __future__ import annotations
 
 import asyncio
+import os
 import subprocess
-from functools import partial
+from collections.abc import Callable
 
 import networkx as nx
 from loguru import logger
 
-from nanoflow import Task, task, workflow
-from nanoflow.config import WorkflowConfig
-from nanoflow.resource_pool import ResourcePool
+from .config import WorkflowConfig
+from .resource_pool import ResourcePool
+from .task import Task, task
+from .workflow import workflow
 
 
 @task
@@ -51,7 +53,24 @@ def get_available_gpus(threshold=0.05) -> list[int]:
 @workflow
 async def execute_parallel_tasks(config: WorkflowConfig):
     def create_gpu_task(command: str) -> Task:
-        return task(resource_pool=gpu_pool)(partial(subprocess.run, command, shell=True))
+        environ = os.environ.copy()
+
+        def set_visible_gpu(fn: Callable[[], bytes], resource: int) -> Callable[[], bytes]:
+            environ["CUDA_VISIBLE_DEVICES"] = str(resource)
+
+            def inner_fn() -> bytes:
+                res = subprocess.run(command, shell=True, env=environ)
+                if res.returncode != 0:
+                    logger.error(f"Command failed with return code {res.returncode}")
+                    return res.stderr
+                return res.stdout
+
+            return inner_fn
+
+        @task(resource_pool=gpu_pool, resource_modifier=set_visible_gpu)
+        def dummy_fn() -> bytes: ...
+
+        return dummy_fn
 
     logger.info("Submitting tasks to get available GPUs and group parallel nodes")
     available_gpus = get_available_gpus.submit()

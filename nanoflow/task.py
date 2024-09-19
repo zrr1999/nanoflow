@@ -17,6 +17,7 @@ class Task(BaseModel, Generic[P, R]):
     name: str
     fn: Callable[P, R]
     resource_pool: ResourcePool[Any] | None = None
+    resource_modifier: Callable[[Callable[P, R], Any], Callable[P, R]] | None = None
 
     def __call__(self, *args: P.args, **kwargs: P.kwargs) -> R:
         return self.fn(*args, **kwargs)
@@ -25,8 +26,12 @@ class Task(BaseModel, Generic[P, R]):
         async def wrapper_fn():
             if self.resource_pool is not None:
                 resource = await self.resource_pool.acquire()
+                if self.resource_modifier is not None:
+                    fn = self.resource_modifier(self.fn, resource)
+                else:
+                    fn = self.fn
                 try:
-                    return await asyncio.to_thread(self.fn, *args, **kwargs)
+                    return await asyncio.to_thread(fn, *args, **kwargs)
                 finally:
                     self.resource_pool.release(resource)
             else:
@@ -44,6 +49,7 @@ def task(
     *,
     name: str | None = None,
     resource_pool: ResourcePool[Any] | None = ...,
+    resource_modifier: Callable[[Callable[P, R], Any], Callable[P, R]] | None = None,
 ) -> Callable[[Callable[P, R]], Task[P, R]]: ...
 
 
@@ -52,9 +58,15 @@ def task(
     *,
     name: str | None = None,
     resource_pool: ResourcePool[Any] | None = None,
+    resource_modifier: Callable[[Callable[P, R], Any], Callable[P, R]] | None = None,
 ) -> Callable[[Callable[P, R]], Task[P, R]] | Task[P, R]:
     def decorator(fn: Callable[P, R]) -> Task[P, R]:
-        return Task(name=name or getattr(fn, "__name__", "unnamed"), fn=fn, resource_pool=resource_pool)
+        return Task(
+            name=name or getattr(fn, "__name__", "unnamed"),
+            fn=fn,
+            resource_pool=resource_pool,
+            resource_modifier=resource_modifier,
+        )
 
     if fn is None:
         return decorator

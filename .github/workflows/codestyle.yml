@@ -4,14 +4,13 @@ on:
   push:
     branches: [main]
   pull_request:
-
 jobs:
   code-style-check:
     runs-on: ubuntu-latest
     name: CodeStyle Check
     steps:
       - name: Checkout 📦
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install python 📦
         uses: actions/setup-python@v4

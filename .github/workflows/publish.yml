@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - "[0-9]+.[0-9]+.[0-9]+"
-permissions:
-  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,9 +11,9 @@ jobs:
       id-token: write
     steps:
     - name: Checkout 📦
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Setup PDM 📦
-      uses: pdm-project/setup-pdm@v3
+      uses: pdm-project/setup-pdm@v4
       with:
         python-version: "3.11"
     - name: Build package 👷‍♂️
@@ -25,21 +23,20 @@ jobs:
         pdm install
         pdm build --no-isolation --no-sdist
     - name: Upload wheels 👷‍♂️
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: wheels
         path: dist
-
-  publish-release:
+  publish:
     runs-on: ubuntu-latest
     needs: [build]
     permissions:
       id-token: write
     steps:
     - name: Checkout 📦
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Download wheels 👷‍♂️
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: wheels
         path: dist
