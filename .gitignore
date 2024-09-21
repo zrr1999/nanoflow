@@ -6,3 +6,6 @@ dist/
 .cursorrules
 
 __version__.py
+
+.coverage
+coverage.xml

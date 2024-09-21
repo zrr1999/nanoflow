@@ -4,6 +4,7 @@ import asyncio
 from collections.abc import Callable
 from typing import Any, Generic, ParamSpec, TypeVar, overload
 
+from loguru import logger
 from pydantic import BaseModel, ConfigDict
 
 from .resource_pool import ResourcePool
@@ -26,6 +27,7 @@ class Task(BaseModel, Generic[P, R]):
         async def wrapper_fn():
             if self.resource_pool is not None:
                 resource = await self.resource_pool.acquire()
+                logger.info(f"Acquired resource: {resource}")
                 if self.resource_modifier is not None:
                     fn = self.resource_modifier(self.fn, resource)
                 else:
@@ -34,6 +36,7 @@ class Task(BaseModel, Generic[P, R]):
                     return await asyncio.to_thread(fn, *args, **kwargs)
                 finally:
                     self.resource_pool.release(resource)
+                    logger.info(f"Released resource: {resource}")
             else:
                 return await asyncio.to_thread(self.fn, *args, **kwargs)
 

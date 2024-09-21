@@ -54,14 +54,14 @@ def get_available_gpus(threshold=0.05) -> list[int]:
 @workflow
 async def execute_parallel_tasks(config: WorkflowConfig):
     def create_gpu_task(command: str) -> Task:
-        environ = os.environ.copy()
-
         def set_visible_gpu(fn: Callable[[], bytes], resource: int) -> Callable[[], bytes]:
+            environ = os.environ.copy()
             environ["CUDA_VISIBLE_DEVICES"] = str(resource)
 
             def inner_fn() -> bytes:
                 res = subprocess.run(command, shell=True, env=environ)
                 if res.returncode != 0:
+                    # TODO: raise an exception
                     logger.error(f"Command failed with return code {res.returncode}")
                     return res.stderr
                 return res.stdout
