@@ -83,6 +83,7 @@ source-includes = ["tests", "README.md"]
 
 [tool.uv]
 dev-dependencies = [
+    "ruff",
     "xdoctest",
     "pytest",
     "pytest-cov",

@@ -2,15 +2,15 @@ install:
     uv sync --all-extras --dev --index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 ruff:
-    ruff check . --fix --unsafe-fixes
-    ruff format .
+    uv run ruff check . --fix --unsafe-fixes
+    uv run ruff format .
 
 pyright:
-    pyright .
+    uv run pyright .
 
 cov:
-    pytest --cov=nanoflow --xdoc
-    coverage xml
+    uv run pytest --cov=nanoflow --xdoc
+    uv run coverage xml
 
 check:
     just ruff
