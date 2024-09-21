@@ -1,0 +1,32 @@
+name: Coverage
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Just 📦
+        uses: extractions/setup-just@v2
+      - name: Install the latest version of uv 📦
+        uses: astral-sh/setup-uv@v2
+      - name: Install dependencies 📦
+        run: just install
+      - name: Run tests and coverage ✅
+        run: just cov
+      - name: Upload coverage reports to Codecov 📦
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          flags: nanoflow
+          plugins: pycoverage,compress-pycoverage
