@@ -68,7 +68,7 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.pyright]
-includes = ["nanoflow"]
+includes = ["nanoflow", "tests"]
 typeCheckingMode = "standard"
 reportPrivateImportUsage = false
 
@@ -79,7 +79,7 @@ write_template = "__version__ = '{}'"
 
 [tool.pdm.build]
 includes = ["nanoflow"]
-source-includes = ["README.md"]
+source-includes = ["tests", "README.md"]
 
 [tool.uv]
 dev-dependencies = [

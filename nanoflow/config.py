@@ -22,7 +22,7 @@ class WorkflowConfig(BaseModel):
     >>>     }
     >>> )
     >>> config.to_nodes()
-    >>> {'task1': [], 'task2': ['task1'], 'task3': ['task2']}
+    {'task1': [], 'task2': ['task1'], 'task3': ['task2']}
     """
 
     name: str

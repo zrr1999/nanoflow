@@ -59,11 +59,7 @@ async def execute_parallel_tasks(config: WorkflowConfig):
             environ["CUDA_VISIBLE_DEVICES"] = str(resource)
 
             def inner_fn() -> bytes:
-                res = subprocess.run(command, shell=True, env=environ)
-                if res.returncode != 0:
-                    # TODO: raise an exception
-                    logger.error(f"Command failed with return code {res.returncode}")
-                    return res.stderr
+                res = subprocess.run(command, shell=True, env=environ, check=True)
                 return res.stdout
 
             return inner_fn

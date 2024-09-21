@@ -9,7 +9,7 @@ pyright:
     pyright .
 
 cov:
-    pytest ./nanoflow --cov=nanoflow --xdoc
+    pytest --cov=nanoflow --xdoc
     coverage xml
 
 check:
