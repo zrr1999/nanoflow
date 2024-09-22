@@ -8,5 +8,5 @@ runner = CliRunner()
 
 
 def test_app():
-    result = runner.invoke(app, ["examples/simple.toml"])
+    result = runner.invoke(app, ["./examples/simple.toml"])
     assert result.exit_code == 0
