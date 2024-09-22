@@ -1,0 +1,11 @@
+name = "simple example"
+
+[tasks.a]
+command = "echo 'a'"
+
+[tasks.b]
+command = "echo 'b'"
+
+[tasks.c]
+command = "echo 'c'"
+deps = ["a", "b"]

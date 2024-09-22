@@ -42,23 +42,14 @@ jobs:
       with:
         name: wheels
         path: dist
-    - name: Python Semantic Release 🚀
-      id: release
-      uses: python-semantic-release/python-semantic-release@v9.8.8
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        changelog: true
-        root_options: "-vv"
     - name: Publish to PyPi 🚀
-      if: steps.release.outputs.released == 'true'
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         skip-existing: true
         packages-dir: dist
         verbose: true
     - name: Publish package distributions to GitHub Releases
-      if: steps.release.outputs.released == 'true'
       uses: python-semantic-release/upload-to-gh-release@v9.8.8
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        tag: ${{ steps.release.outputs.tag }}
+        tag: ${{ github.ref_name }}
