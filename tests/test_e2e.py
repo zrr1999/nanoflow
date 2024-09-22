@@ -9,4 +9,4 @@ runner = CliRunner()
 
 def test_app():
     result = runner.invoke(app, ["./examples/simple.toml"])
-    assert result.exit_code == 0
+    assert result.exit_code == 0, f"Exit code was {result.exit_code}, expected 0. Error: {result.exc_info}"
