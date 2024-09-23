@@ -10,7 +10,7 @@ from rich.highlighter import NullHighlighter
 from rich.logging import RichHandler
 
 from nanoflow import WorkflowConfig
-from nanoflow.utils import execute_parallel_tasks
+from nanoflow.utils import execute_gpu_parallel_tasks
 
 app = typer.Typer()
 
@@ -25,7 +25,7 @@ def init_logger(log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICA
 def run(config_path: Path):
     init_logger("DEBUG")
     workflow_config = WorkflowConfig.model_validate(toml.load(config_path))
-    execute_parallel_tasks.run(workflow_config)
+    execute_gpu_parallel_tasks.run(workflow_config)
 
 
 if __name__ == "__main__":

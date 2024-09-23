@@ -52,7 +52,7 @@ def get_available_gpus(threshold=0.05) -> list[int]:
 
 
 @workflow
-async def execute_parallel_tasks(config: WorkflowConfig):
+async def execute_gpu_parallel_tasks(config: WorkflowConfig):
     def create_gpu_task(command: str) -> Task:
         def set_visible_gpu(fn: Callable[[], bytes], resource: int) -> Callable[[], bytes]:
             environ = os.environ.copy()
