@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from pathlib import Path
 from typing import Literal
 
@@ -22,10 +23,22 @@ def init_logger(log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICA
 
 
 @app.command()
-def run(config_path: Path):
+def run(config_path: Path, use_tui: bool = False):
     init_logger("DEBUG")
     workflow_config = WorkflowConfig.model_validate(toml.load(config_path))
-    execute_gpu_parallel_tasks.run(workflow_config)
+    if use_tui:
+        from nanoflow.app import Nanoflow
+
+        app = Nanoflow(workflow_config)
+
+        async def start():
+            await asyncio.gather(
+                execute_gpu_parallel_tasks(workflow_config, update_hook=app.update_log), app.run_async()
+            )
+
+        asyncio.run(start())
+    else:
+        execute_gpu_parallel_tasks.run(workflow_config)
 
 
 if __name__ == "__main__":

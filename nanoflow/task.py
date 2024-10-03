@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import asyncio
-import subprocess
 from collections.abc import Callable
 from typing import Any, Generic, ParamSpec, TypeVar, overload
 
@@ -12,6 +11,10 @@ from .resource_pool import ResourcePool
 
 P = ParamSpec("P")
 R = TypeVar("R")
+
+
+class TaskProcessError(Exception):
+    """Exception raised when a task process fails."""
 
 
 class Task(BaseModel, Generic[P, R]):
@@ -53,7 +56,7 @@ class Task(BaseModel, Generic[P, R]):
                         logger.info(f"Released resource: {resource}")
                 else:
                     return await asyncio.to_thread(self.fn, *args, **kwargs)
-            except subprocess.CalledProcessError as e:
+            except TaskProcessError as e:
                 logger.error(f"Failed to execute task: {e}")
                 if retry_interval:
                     retry = retry_interval.pop(0)
