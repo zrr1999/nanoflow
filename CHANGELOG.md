@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## v0.1.0 (2024-10-03)
+
+### ♻️ refactor
+
+* ♻️ refactor: rename `execute_gpu_parallel_tasks` to `execute_gpu_parallel_tasks` ([`6e7290b`](https://github.com/zrr1999/nanoflow/commit/6e7290b6ebf909c05e82d9c78626944f9eee948b))
+
+### ✨ feat
+
+* ✨ feat: add basic tui ([`23a49e1`](https://github.com/zrr1999/nanoflow/commit/23a49e1259949a0d2e06517d9c9bc78fd3a3cfef))
+
+### 🐛 fix
+
+* 🐛 fix: use uv run in justfile ([`eeb5371`](https://github.com/zrr1999/nanoflow/commit/eeb5371dfb5184c27fb66dc2f8095f9a57628281))
+
+### 👷 ci
+
+* 👷 ci: fix releaserc ([`547daa8`](https://github.com/zrr1999/nanoflow/commit/547daa83df01abbf81422ef713b50fe647e30c62))
+
+* 👷 ci: organize actions ([`8cf81a5`](https://github.com/zrr1999/nanoflow/commit/8cf81a50a4052250e5e8b8baf594887566c3b059))
+
+* 👷 ci: add release action ([`b5fd630`](https://github.com/zrr1999/nanoflow/commit/b5fd6309f16777d5f9664d441744171db77f81c8))
+
+### 📝 docs
+
+* 📝 docs: add examples ([`77ab584`](https://github.com/zrr1999/nanoflow/commit/77ab58432ddfa7b942821ffeafa0b5f65ce7dafe))
+
+### 🔧 chore
+
+* 🔧 chore: remove version_variables in releaserc ([`e83cf7d`](https://github.com/zrr1999/nanoflow/commit/e83cf7d24eaf76108893a82eee21bf2c31aefffc))
+
 ## v0.0.5 (2024-09-21)
 
 ### ✨ feat

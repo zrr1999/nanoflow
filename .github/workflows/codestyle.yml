@@ -12,6 +12,8 @@ jobs:
       - name: Checkout 📦
         uses: actions/checkout@v4
       - name: Install python 📦
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - name: Run pre-commit ✅
         uses: pre-commit/action@v3.0.1
