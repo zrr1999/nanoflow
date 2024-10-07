@@ -69,11 +69,17 @@ def create_gpu_task(
         environ["FORCE_COLOR"] = "1"
 
         def inner_fn() -> None:
-            process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=environ)
             if update_hook is not None:
+                process = subprocess.Popen(
+                    command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=environ
+                )
                 assert process.stdout is not None
                 for line in process.stdout:
                     update_hook(name, line)
+            else:
+                process = subprocess.Popen(
+                    command, shell=True, stdout=subprocess.STDOUT, stderr=subprocess.STDOUT, env=environ
+                )
             returncode = process.wait()
             if returncode != 0:
                 raise TaskProcessError(f"Task failed with return code {returncode}")

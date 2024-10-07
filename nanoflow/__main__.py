@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+from logging import Handler
 from pathlib import Path
 from typing import Literal
 
@@ -16,15 +17,15 @@ from nanoflow.utils import execute_gpu_parallel_tasks
 app = typer.Typer()
 
 
-def init_logger(log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]):
-    handler = RichHandler(highlighter=NullHighlighter(), markup=True)
+def init_logger(log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], handler: Handler):
     logger.remove()
     logger.add(handler, format="{message}", level=log_level)
 
 
 @app.command()
 def run(config_path: Path, use_tui: bool = False):
-    init_logger("DEBUG")
+    handler = RichHandler(highlighter=NullHighlighter(), markup=True)
+    init_logger("DEBUG", handler)
     workflow_config = WorkflowConfig.model_validate(toml.load(config_path))
     if use_tui:
         from nanoflow.app import Nanoflow
