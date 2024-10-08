@@ -7,6 +7,7 @@
 - [ ] ♻️ refactor
 - [ ] 🔨 chore
 - [ ] 📝 docs
+- [ ] 👷 ci
 
 #### 🔀 变更说明 | Description of Change
 

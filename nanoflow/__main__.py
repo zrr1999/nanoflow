@@ -12,7 +12,7 @@ from rich.highlighter import NullHighlighter
 from rich.logging import RichHandler
 
 from nanoflow import WorkflowConfig
-from nanoflow.utils import execute_gpu_parallel_tasks
+from nanoflow.utils import execute_parallel_tasks
 
 app = typer.Typer()
 
@@ -33,13 +33,11 @@ def run(config_path: Path, use_tui: bool = False):
         app = Nanoflow(workflow_config)
 
         async def start():
-            await asyncio.gather(
-                execute_gpu_parallel_tasks(workflow_config, update_hook=app.update_log), app.run_async()
-            )
+            await asyncio.gather(execute_parallel_tasks(workflow_config, update_hook=app.update_log), app.run_async())
 
         asyncio.run(start())
     else:
-        execute_gpu_parallel_tasks.run(workflow_config)
+        execute_parallel_tasks.run(workflow_config)
 
 
 if __name__ == "__main__":

@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  coverage:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-22.04
     permissions:
       contents: read
     steps:
@@ -17,13 +17,16 @@ jobs:
         uses: extractions/setup-just@v2
       - name: Install the latest version of uv 📦
         uses: astral-sh/setup-uv@v2
+      - name: Install python 📦
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - name: Install dependencies 📦
         run: just install
       - name: Run tests and benchmarks ✅
         uses: CodSpeedHQ/action@v3
         with:
           run: just test
-          token: ${{ secrets.CODSPEED_TOKEN }}
       - name: Upload coverage reports to Codecov 📦
         uses: codecov/codecov-action@v4
         env:
