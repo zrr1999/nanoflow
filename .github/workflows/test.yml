@@ -19,12 +19,15 @@ jobs:
         uses: astral-sh/setup-uv@v2
       - name: Install dependencies 📦
         run: just install
-      # - name: Run tests and coverage ✅
-      #   run: just cov
-      # - name: Upload coverage reports to Codecov 📦
-      #   uses: codecov/codecov-action@v4
-      #   env:
-      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      #   with:
-      #     flags: nanoflow
-      #     plugins: pycoverage,compress-pycoverage
+      - name: Run tests and benchmarks ✅
+        uses: CodSpeedHQ/action@v3
+        with:
+          run: just test
+          token: ${{ secrets.CODSPEED_TOKEN }}
+      - name: Upload coverage reports to Codecov 📦
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          flags: nanoflow
+          plugins: pycoverage,compress-pycoverage

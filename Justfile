@@ -11,8 +11,8 @@ ruff:
 pyright:
     uv run pyright .
 
-cov:
-    uv run pytest --cov=nanoflow --xdoc
+test:
+    uv run pytest --cov=nanoflow --codspeed --xdoc
     uv run coverage xml
 
 check:
@@ -20,6 +20,6 @@ check:
     just pyright
 
 push:
-    just cov
+    just test
     git push
     git push --tags

@@ -77,9 +77,7 @@ def create_gpu_task(
                 for line in process.stdout:
                     update_hook(name, line)
             else:
-                process = subprocess.Popen(
-                    command, shell=True, stdout=subprocess.STDOUT, stderr=subprocess.STDOUT, env=environ
-                )
+                process = subprocess.Popen(command, shell=True, env=environ)
             returncode = process.wait()
             if returncode != 0:
                 raise TaskProcessError(f"Task failed with return code {returncode}")
