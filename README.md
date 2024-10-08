@@ -12,6 +12,7 @@ Nanoflow is a simple and efficient workflow framework for Python. It allows you 
 ## Roadmap
 
 - [ ] Integration with FastAPI for managing workflows as web APIs
+- [ ] Enhance TUI, improve task log display, use terminal-like style
 
 ## Installation [![Downloads](https://pepy.tech/badge/nanoflow)](https://pepy.tech/project/nanoflow)
 
@@ -43,4 +44,27 @@ pip install .
 
 ## Usage
 
-To use Nanoflow, you can define tasks and workflows using decorators:
+To use Nanoflow as a package, you can define tasks and workflows using decorators:
+
+```python
+from nanoflow import workflow, task
+
+@task
+def task_a():
+    print("a")
+
+@workflow
+async def workflow_a():
+    await task_a.submit()
+
+
+if __name__ == "__main__":
+    workflow_a.run()
+```
+
+To use Nanoflow as a cli or tui, you can use the following command:
+
+```shell
+nanoflow examples/simple.toml
+nanoflow examples/simple.toml --use-tui
+```
