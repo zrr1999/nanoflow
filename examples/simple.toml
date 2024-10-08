@@ -1,11 +1,12 @@
 name = "simple example"
+resources = ["fake-device-1", "fake-device-2"]
 
 [tasks.a]
-command = "echo 'a'"
+command = "sleep 1 && echo 'a'"
 
 [tasks.b]
-command = "echo 'b'"
+command = "sleep 2 && echo 'b'"
 
 [tasks.c]
-command = "echo 'c'"
+command = "sleep 1 && echo 'c'"
 deps = ["a", "b"]

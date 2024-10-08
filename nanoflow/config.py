@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import BaseModel
 
 
@@ -15,6 +17,7 @@ class WorkflowConfig(BaseModel):
     Example:
     >>> config = WorkflowConfig(
     >>>     name="test",
+    >>>     resources="gpus",
     >>>     tasks={
     >>>         "task1": TaskConfig(command="echo 'task1'"),
     >>>         "task2": TaskConfig(command="echo 'task2'", deps=["task1"]),
@@ -27,6 +30,7 @@ class WorkflowConfig(BaseModel):
 
     name: str
     tasks: dict[str, TaskConfig]
+    resources: Literal["gpus"] | list[str] | None = None
 
     def to_nodes(self) -> dict[str, list[str]]:
         nodes = {}
