@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v0.2.0 (2024-10-08)
+
+### ✨ feat
+
+* ✨ feat: support custom resources in config (#2) ([`f4c3175`](https://github.com/zrr-lab/nanoflow/commit/f4c3175df5a2d3a93f2b1f9d07e3f64f92ec47f2))
+
+### 👷 ci
+
+* 👷 ci: add codspeed action ([`432d331`](https://github.com/zrr-lab/nanoflow/commit/432d3316fda5ddb1483b376c6e1979fbf7627678))
+
+* 👷 ci: add issue auto comments and issues translate ([`ec70cf6`](https://github.com/zrr-lab/nanoflow/commit/ec70cf65ffddd739d9e5e69f58e8ef73f17cd3df))
+
+### 🔧 chore
+
+* 🔧 chore: improve log ([`92b521e`](https://github.com/zrr-lab/nanoflow/commit/92b521e6f13ca243ac3030cbe0b2393b1f725753))
+
 ## v0.1.0 (2024-10-03)
 
 ### ♻️ refactor
