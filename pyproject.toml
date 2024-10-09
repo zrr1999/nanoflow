@@ -89,7 +89,17 @@ dev-dependencies = [
     "pytest",
     "pytest-cov",
     "pytest-codspeed",
+    "pytest-asyncio",
 ]
+
+[tool.coverage.report]
+exclude_also = [
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "@(abc\\.)?abstractmethod",
+]
+
 
 [build-system]
 requires = ["pdm-backend"]
